@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.educandoweb.course.entities.enums.OrderStatus;
@@ -39,6 +41,11 @@ public class Order implements Serializable{
 	//O "id" é um objeto de "OrderItemPk" e o "order" é um atributo dele 
 	@OneToMany(mappedBy = "id.order")
 	private Set<OrderItem> items = new HashSet<>();
+	
+	//"order" é o nome do atributo da classe Payment
+	//Neste projeto o ID do pagamento vai ser igual ao ID do pedido, por isso usamos o "cascade"
+	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+	private Payment payment; 
 	
 	public Order() {}
 	
@@ -81,6 +88,14 @@ public class Order implements Serializable{
 
 	public void setClient(User client) {
 		this.client = client;
+	}
+	
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 
 	public Set<OrderItem> getItems(){
