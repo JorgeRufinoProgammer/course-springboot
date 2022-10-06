@@ -26,4 +26,9 @@ public class UserService {
 		//metodo "get" pega o objeto do "Optional"
 		return obj.get();
 	}
+	
+	public User insert (User obj) {
+		//O metodo "save" já retorna um objeto "User" depois de salvar no banco
+		return userRepository.save(obj);
+	}
 }
