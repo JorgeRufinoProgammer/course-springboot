@@ -31,4 +31,8 @@ public class UserService {
 		//O metodo "save" já retorna um objeto "User" depois de salvar no banco
 		return userRepository.save(obj);
 	}
+	
+	public void delete (Long id) {
+		userRepository.deleteById(id);
+	}
 }
